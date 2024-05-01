@@ -5,11 +5,13 @@ Web designing and developing was something I always wanted to learn, so I decide
 My first project was a simple HTML + CSS webpage (no React, no Vue, nothing) for a future Furniture Restoration Shop for my girlfriend. This project is a revamped version of that first project.
 
 This revamped version has the following features:
+
   Frontend:
     React
     JWT authentication with cookie
     A blog for commenting about news regarding the shop or even personal stuff
     A shop for displaying new furniture
+
 
   Backend: 
     Node + Express for setting up RESTful API (with routes, controllers, middleware)
