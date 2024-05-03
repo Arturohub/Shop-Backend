@@ -4,9 +4,12 @@ const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 
 
+
+
 const registerUser = async (req, res) => {
   try {
     const { name, family_name, mobile_number, email, password, profile_picture } = req.body;
+    
     if (!email || !name || !family_name || !mobile_number || !profile_picture) {
       return res.status(400).json({ message: "Please, fill up all the input fields" });
     }
@@ -44,9 +47,9 @@ const loginUser = async (req, res) => {
       return res.status(400).json({ message: "Passwords do not match" });
     }
 
-    jwt.sign({ email: user.email, id: user._id, name: user.name }, process.env.JWT_SECRET, {}, (error, token) => {
+    jwt.sign({ email: user.email, id: user._id, name: user.name, image: user.profile_picture }, process.env.JWT_SECRET, {}, (error, token) => {
       if (error) throw error;
-      res.cookie("ES-token", token, { httpOnly: true, maxAge: 7 * 24 * 60 * 60 * 1000 }).json({ user, message: "User logged in successfully" });
+      res.cookie("ES-token", token, { httpOnly: true, maxAge: 7 * 24 * 60 * 60 * 1000, sameSite: "none", secure: true }).json({ user, message: "User logged in successfully" });
     });
 
     return user;
@@ -69,6 +72,7 @@ const getProfile = (req, res) => {
     res.status(401).json({ message: "Token not provided" });
   }
 };
+
 
 const logoutUser = (req, res) => {
   res.clearCookie("ES-token").status(200).json({ message: "User has been logged out" });
@@ -97,7 +101,7 @@ const forgotPassword = async (req, res) => {
       from: process.env.EMAIL,
       to: email,
       subject: "Password Reset Link",
-      html: `<p>Hey, ${user.name || 'user'}, you requested for a password reset, so please kindly click the following link: <a href="https://restorationshop.onrender.com/resetpassword?token=${resetToken}">here</a> to reset your password.</p>`,
+      html: `<p>Hey, ${user.name || 'user'}, you requested for a password reset, so please kindly click the following link: <a href="http://localhost:5173/resetpassword?token=${resetToken}">here</a> to reset your password.</p>`,
     };
   
     transporter.sendMail(mailOptions, (error, info) => {

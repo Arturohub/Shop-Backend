@@ -20,7 +20,7 @@ const app = express();
 
 // Middleware for frontend-backend communication
 const corsOptions = {
-  origin: "https://restorationshop.onrender.com",
+  origin: "http://localhost:5173",
   optionsSuccessStatus: 200,
   credentials: true,
 };
