@@ -101,7 +101,7 @@ const forgotPassword = async (req, res) => {
       from: process.env.EMAIL,
       to: email,
       subject: "Password Reset Link",
-      html: `<p>Hey, ${user.name || 'user'}, you requested for a password reset, so please kindly click the following link: <a href="http://localhost:5173/resetpassword?token=${resetToken}">here</a> to reset your password.</p>`,
+      html: `<p>Hey, ${user.name || 'user'}, you requested for a password reset, so please kindly click the following link: <a href="https://restorationshop.onrender.com/resetpassword?token=${resetToken}">here</a> to reset your password.</p>`,
     };
   
     transporter.sendMail(mailOptions, (error, info) => {
